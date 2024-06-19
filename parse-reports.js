@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 
-const reportsInputDir = process.argv[2] || 'reports';
+const { getReportsPath } = require('./get-reports-path');
+const appUrl = process.env.APP_URL;
 
-const normalizedPath = require('path').join(__dirname, reportsInputDir);
+const normalizedPath = require('path').join(__dirname, getReportsPath({ appUrl }));
 const reports = [];
 
 require('fs')
   .readdirSync(normalizedPath)
   .forEach(file => {
     if (file.endsWith('json')) {
-      console.log(`Importing file ${reportsInputDir}/${file}...`);
-      const report = require(`./${reportsInputDir}/${file}`);
+      console.log(`Importing file ${normalizedPath}/${file}...`);
+      const report = require(`${normalizedPath}/${file}`);
       reports.push(report);
     }
   });
@@ -80,13 +81,13 @@ console.log(`Average Performance Score: ${averagePerformanceScore}`);
 
 console.log(
   '\n' +
-    `Generating average performance report in ${reportsInputDir}/average-performance-report.json...`
+    `Generating average performance report in ${normalizedPath}/average-performance-report.json...`
 );
 
 const fs = require('fs');
 const reportJSON = JSON.stringify(generateAverageReport(reports));
 fs.writeFile(
-  `${reportsInputDir}/average-performance-report.json`,
+  `${normalizedPath}/average-performance-report.json`,
   reportJSON,
   'utf8',
   err => {
@@ -104,6 +105,3 @@ fs.writeFile(
     );
   }
 );
-
-console.log(``)
-console.log(`Drag and drop the above report into https://googlechrome.github.io/lighthouse/viewer/`)

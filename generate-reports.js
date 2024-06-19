@@ -22,7 +22,7 @@ for (let i = 0; i < howManyReports; i++) {
   try {
     execSync(
       `cd ${siteReportOutputDir} && ` +
-        `lighthouse ${appUrl} --output json --output html --preset desktop --only-categories=performance --quiet --chrome-flags="--headless"`
+        `lighthouse ${appUrl} --output json --output html --only-categories=performance --quiet --chrome-flags="--headless"`
     );
   } catch (err) {
     console.log(`Performance test ${i + 1} failed`);

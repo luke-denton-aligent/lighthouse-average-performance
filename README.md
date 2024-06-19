@@ -23,6 +23,18 @@ run the lighthouse script _n-times_ and put the reports on a directory. The
 certain directory and generate the average performance metrics.
 
 At the top of each script, there are variables you should customize to use them.
+
+Prerequisites
+
+`lighthouse`
+
+Needs to be installed as a global dependency:
+
+```sh
+npm i -g lighthouse
+```
+
+
 To run the scripts, you can do:
 
 ```sh

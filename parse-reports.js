@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const reportsInputDir = process.argv[2] || 'baseline10';
+const reportsInputDir = process.argv[2] || 'reports';
 
 const normalizedPath = require('path').join(__dirname, reportsInputDir);
 const reports = [];
@@ -56,7 +56,7 @@ const generateAverageReport = reports => {
       'first-meaningful-paint'
     ),
     'speed-index': calculateAverageForAudit(reports, 'speed-index'),
-    'first-cpu-idle': calculateAverageForAudit(reports, 'first-cpu-idle'),
+    // 'first-cpu-idle': calculateAverageForAudit(reports, 'first-cpu-idle'),
     interactive: calculateAverageForAudit(reports, 'interactive'),
     'max-potential-fid': calculateAverageForAudit(reports, 'max-potential-fid')
   };
@@ -73,7 +73,7 @@ console.log('\n\n');
 printAudit(calculateAverageForAudit(reports, 'first-contentful-paint'));
 printAudit(calculateAverageForAudit(reports, 'first-meaningful-paint'));
 printAudit(calculateAverageForAudit(reports, 'speed-index'));
-printAudit(calculateAverageForAudit(reports, 'first-cpu-idle'));
+// printAudit(calculateAverageForAudit(reports, 'first-cpu-idle'));
 printAudit(calculateAverageForAudit(reports, 'interactive'));
 printAudit(calculateAverageForAudit(reports, 'max-potential-fid'));
 console.log(`Average Performance Score: ${averagePerformanceScore}`);
@@ -104,3 +104,6 @@ fs.writeFile(
     );
   }
 );
+
+console.log(``)
+console.log(`Drag and drop the above report into https://googlechrome.github.io/lighthouse/viewer/`)
